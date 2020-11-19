@@ -1,9 +1,3 @@
-variable "create_guardduty_member" {
-  description = "Controls whether to create the GuardDuty member"
-  type        = bool
-  default     = true
-}
-
 variable "guardduty_master_detector_id" {
   description = "GuardDuty Detector ID for master account"
   type        = string

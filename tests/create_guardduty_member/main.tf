@@ -17,7 +17,6 @@ module "create_guardduty_member" {
     aws.master = "aws.resource-owner"
   }
 
-  create_guardduty_member      = true
   guardduty_master_detector_id = "<insert_detector_id>"
   email_address                = "<insert_email>"
 }
