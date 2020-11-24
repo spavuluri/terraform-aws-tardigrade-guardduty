@@ -9,7 +9,7 @@ provider aws {
   profile = "resource-owner"
 }
 
-module create_guardduty_member {
+module guardduty_member {
   source = "../../"
 
   providers = {
