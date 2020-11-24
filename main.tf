@@ -8,9 +8,6 @@ provider "aws" {
   alias = "master"
 }
 
-data "aws_caller_identity" "member" {
-}
-
 data "aws_caller_identity" "master" {
   provider = aws.master
 }
@@ -22,6 +19,7 @@ data "aws_caller_identity" "master" {
 # -----------------------------------------------------------
 resource "aws_guardduty_detector" "member" {
   provider = aws
+
   enable = true
 }
 
@@ -32,10 +30,9 @@ resource "aws_guardduty_detector" "member" {
 # -----------------------------------------------------------
 
 resource "aws_guardduty_member" "invite" {
-  provider   = aws.master
-  depends_on = [aws_guardduty_detector.member]
+  provider = aws.master
 
-  account_id                 = data.aws_caller_identity.member.account_id
+  account_id                 = aws_guardduty_detector.member.account_id
   detector_id                = var.guardduty_master_detector_id
   email                      = var.email_address
   invite                     = true
