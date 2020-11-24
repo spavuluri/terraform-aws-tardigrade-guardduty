@@ -10,19 +10,6 @@ update_configs:
     directory: "/tests/create_guardduty_member"
     update_schedule: "daily"
 
-  - package_manager: "terraform"
-    directory: "/tests/no_create"
-    update_schedule: "daily"
-
-  - package_manager: "go:modules"
-    directory: "/tests"
-    update_schedule: "daily"
-
-  - package_manager: "python"
-    directory: "/"
-    update_schedule: "live"
-
   - package_manager: "docker"
     directory: "/"
     update_schedule: "daily"
-
