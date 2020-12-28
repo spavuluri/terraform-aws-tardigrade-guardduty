@@ -1,15 +1,15 @@
-provider aws {
+provider "aws" {
   region  = "us-east-1"
   profile = "resource-member"
 }
 
-provider aws {
+provider "aws" {
   region  = "us-east-1"
   alias   = "resource-owner"
   profile = "resource-owner"
 }
 
-module guardduty_member {
+module "guardduty_member" {
   source = "../../"
 
   providers = {
@@ -25,13 +25,13 @@ module guardduty_member {
   ]
 }
 
-resource aws_guardduty_detector master {
+resource "aws_guardduty_detector" "master" {
   provider = aws.resource-owner
 
   enable = true
 }
 
-variable member_email {
+variable "member_email" {
   description = "Email address associated with the member account. Required input for the Guardduty member invitation."
   type        = string
 }

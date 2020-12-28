@@ -1,14 +1,14 @@
-provider aws {
+provider "aws" {
   alias = "master"
 }
 
-resource aws_guardduty_detector this {
+resource "aws_guardduty_detector" "this" {
   provider = aws
 
   enable = true
 }
 
-resource aws_guardduty_member this {
+resource "aws_guardduty_member" "this" {
   provider = aws.master
 
   account_id                 = aws_guardduty_detector.this.account_id
@@ -23,7 +23,7 @@ resource aws_guardduty_member this {
   }
 }
 
-resource aws_guardduty_invite_accepter this {
+resource "aws_guardduty_invite_accepter" "this" {
   detector_id       = aws_guardduty_detector.this.id
   master_account_id = data.aws_caller_identity.master.account_id
 
