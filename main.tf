@@ -3,8 +3,6 @@ provider "aws" {
 }
 
 resource "aws_guardduty_detector" "this" {
-  provider = aws
-
   enable = true
 }
 
