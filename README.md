@@ -19,13 +19,14 @@ Note: the implementation `tests/create_guardduty_member` will require you to pro
 | Name | Version |
 |------|---------|
 | terraform | >= 0.12 |
+| aws | >= 3.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | n/a |
-| aws.master | n/a |
+| aws | >= 3.0 |
+| aws.master | >= 3.0 |
 
 ## Inputs
 
