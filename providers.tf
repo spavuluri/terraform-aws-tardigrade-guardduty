@@ -10,9 +10,3 @@ terraform {
 provider "aws" {
   region = "us-east-1"
 }
-
-/*provider "aws" {
-  region = "us-east-1"
-  alias  = "resource-owner"
-  //profile = "resource-owner"
-}*/
