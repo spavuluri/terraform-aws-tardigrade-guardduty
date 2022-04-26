@@ -19,8 +19,6 @@ resource "aws_organizations_organization" "this" {
 provider "aws" {
   region = "us-east-1"
   alias  = "guardduty_administrator"
-  //access_key = "AKIA3IB3EYZJYCCVMDTI"
-  //secret_key = "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"
   //profile = "resource-member"  # Create after successful testing
 }
 
