@@ -7,8 +7,6 @@ variable "enable" {
 variable "member" {
   description = "GuardDuty member"
   type = object({
-    //account_id                 = string # (Required) AWS account ID for member account.
-    //detector_id                = string # (Required) The detector ID of the GuardDuty account where you want to create member accounts.
     email                      = string # (Required) Email address for member account.
     invite                     = string # ((Optional) Boolean whether to invite the account to GuardDuty as a member. Defaults to false.
     invitation_message         = string # (Optional) Message for invitation.

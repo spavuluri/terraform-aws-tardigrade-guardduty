@@ -28,7 +28,7 @@ module "guardduty_member" {
   }
 
   member = {
-    email                      = "kevin.cahn@plus3it.com"
+    email                      = "aws-accounts+tardigrade-dev-tenant-001@plus3it.com"
     invite                     = true
     invitation_message         = "You are invited to join GuardDuty"
     disable_email_notification = true
