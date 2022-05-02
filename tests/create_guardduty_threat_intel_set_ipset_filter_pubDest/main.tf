@@ -1,7 +1,48 @@
-module "guardduty_publishing_destination" {
+module "guardduty_threatintelset_ipset_filter" {
   source = "../../"
 
   enable = true
+
+  filter = {
+    name        = "MyFilter"
+    description = "My Filter"
+    rank        = 1
+    action      = "ARCHIVE"
+    tags = {
+      environment = "testing"
+    }
+    criterion = [
+      {
+        field                 = "severity"
+        equals                = ["4"]
+        not_equals            = ["1"]
+        greater_than          = null
+        greater_than_or_equal = null
+        less_than             = null
+        less_than_or_equal    = null
+      }
+    ]
+  }
+
+  threatintelset = {
+    name     = "MyThreatIntelSet"
+    activate = true
+    format   = "TXT"
+    location = "https://s3.amazonaws.com/${aws_s3_object.MyThreatIntelSet.bucket}/${aws_s3_object.MyThreatIntelSet.key}"
+    tags = {
+      environment = "testing"
+    }
+  }
+
+  ipset = {
+    name     = "MyIpset"
+    activate = true
+    format   = "TXT"
+    location = "https://s3.amazonaws.com/${aws_s3_object.ipSet.bucket}/${aws_s3_object.ipSet.key}"
+    tags = {
+      environment = "testing"
+    }
+  }
 
   publishing_destination = {
     destination_arn  = aws_s3_bucket.bucket.arn
@@ -81,7 +122,6 @@ data "aws_iam_policy_document" "kms_pol" {
       identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"]
     }
   }
-
 }
 
 resource "random_id" "name" {
@@ -113,6 +153,16 @@ resource "aws_kms_key" "gd_key" {
   policy                  = data.aws_iam_policy_document.kms_pol.json
 }
 
+resource "aws_s3_object" "MyThreatIntelSet" {
+  acl     = "public-read"
+  content = "10.0.0.0/8\n"
+  bucket  = aws_s3_bucket.bucket.id
+  key     = "MyThreatIntelSet"
+}
 
-
-
+resource "aws_s3_object" "ipSet" {
+  acl     = "public-read"
+  content = "10.0.0.0/8\n"
+  bucket  = aws_s3_bucket.bucket.id
+  key     = "MyIpSet"
+}

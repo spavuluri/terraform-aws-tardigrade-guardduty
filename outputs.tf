@@ -4,22 +4,22 @@ output "detector" {
 }
 output "filter" {
   description = "GuardDuty filter"
-  value       = aws_guardduty_filter.this
+  value       = var.filter != null ? aws_guardduty_filter.this : null
 }
 
 output "ipset" {
-  description = "GuardDuty filter"
-  value       = aws_guardduty_ipset.this
+  description = "GuardDuty ipset"
+  value       = var.ipset != null ? aws_guardduty_ipset.this : null
 }
 
 output "threatintelset" {
-  description = "GuardDuty filter"
-  value       = aws_guardduty_threatintelset.this
+  description = "GuardDuty threatintelset"
+  value       = var.threatintelset != null ? aws_guardduty_threatintelset.this : null
 }
 
-output "ublishing_destination" {
-  description = "GuardDuty filter"
-  value       = aws_guardduty_publishing_destination.this
+output "publishing_destination" {
+  description = "GuardDuty publishing destination"
+  value       = var.publishing_destination != null ? aws_guardduty_publishing_destination.this : null
 }
 
 
