@@ -1,19 +1,18 @@
-# AWS provider account for the GuardDuty org administrator account
-provider "aws" {
-  region  = "us-east-1"
-  profile = "plus3it-member" # Profile must exist in your .aws/config
-}
-
 # AWS provider account for the AWS organization
 provider "aws" {
   region  = "us-east-1"
-  alias   = "administrator"
   profile = "plus3it-management" # Profile must exist in your .aws/config
 }
 
-# Create AWS Organization in the admninistrator provider account
+# AWS provider account for the GuardDuty org administrator account
+provider "aws" {
+  region  = "us-east-1"
+  alias   = "guardduty_administrator"
+  profile = "plus3it-member" # Profile must exist in your .aws/config
+}
+
+# Create AWS Organization in the this account
 resource "aws_organizations_organization" "this" {
-  provider                      = aws.administrator
   aws_service_access_principals = ["guardduty.amazonaws.com"]
   feature_set                   = "ALL"
 }
@@ -30,11 +29,9 @@ module "guardduty_org_admin_account" {
   enable = true
 
   providers = {
-    aws               = aws
-    aws.administrator = aws.administrator
+    aws                         = aws # Current caller identity and AWS org account
+    aws.guardduty_administrator = aws.guardduty_administrator
   }
-
-  guardduty_administrator_account = "123455668"
 
   depends_on = [aws_organizations_organization.this]
 }
