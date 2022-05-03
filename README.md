@@ -1,16 +1,19 @@
 # terraform-aws-tardigrade-guardduty
 
-Terraform module to create a GuardDuty Detector in a child account and link it
-to a pre-existing detector in the parent account
+Terraform module to create a standard GuardDuty configuration in a single AWS account.  These include a GuardDuty detector, filter, ipset, threatintelset, and publshing destination.  GuardDuty configurations that require multiple AWS accounts are not included in this module, and the terraform code for those configurations has been implemented in seperate submodeles (see the modules section of this project).
+
+ - Creates a GuardDuty detector for this account
+ - Creates a GuardDuty filter for this account if the filter var is not null.
+ - Creates a GuardDuty ipset for this account if the ipset var is not null.
+ - Creates a GuardDuty threatintelset for this account if the threatintelset var is not null.
+ - Creates a GuardDuty publishing_destination for this account if the publishing_destination var is not null.
+
+ Prerequisites:  This publishing_destination resource assumes the S3 bucket associated with the destination arn exists and the required policies have been created to
+ allow GuardDuty to access the bucket.  It also assumes the kms key associated with the kms key arn exists and has a policy that allows GuardDuty to to use it.
 
 ## Testing
 
-You can find example implementations of this module in the tests folder. This module
-requires 2 different AWS accounts to test and so the terraform aws provider definitions
-are assuming that you will be using a profile with the name `resource-owner` and `resource-member`.
-
-Note: the implementation `tests/create_guardduty_member` will require you to provide the variables
-`guardduty_master_detector_id` and `email_address` prior to use
+You can find example implementations of this module in the tests folder (create_all_guardduty_standard_resources). 
 
 
 <!-- BEGIN TFDOCS -->
@@ -18,31 +21,37 @@ Note: the implementation `tests/create_guardduty_member` will require you to pro
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.12 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.0 |
-| <a name="provider_aws.master"></a> [aws.master](#provider\_aws.master) | >= 3.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.11.0 |
 
 ## Resources
 
 | Name | Type |
 |------|------|
-| [aws_caller_identity.master](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_email_address"></a> [email\_address](#input\_email\_address) | Email address associated with the member account. Required input for the GuardDuty member invitation. | `string` | n/a | yes |
-| <a name="input_guardduty_master_detector_id"></a> [guardduty\_master\_detector\_id](#input\_guardduty\_master\_detector\_id) | GuardDuty Detector ID for master account | `string` | n/a | yes |
+| <a name="input_enable"></a> [enable](#input\_enable) | (Optional) Enable GuardDuty monitoring and feedback reporting. Setting to false is equivalent to 'suspending'GuardDuty. Defaults to true. | `bool` | `true` | no |
+| <a name="input_filter"></a> [filter](#input\_filter) | GuardDuty filter configuration | <pre>object({<br>    name        = string                   # (Required) The name of your filter.  SPACES ARE NOT ALOWED<br>    description = string                   # (Optional) Description of the filter.<br>    rank        = number                   # (Required) Specifies the position of the filter in the list of current filters. Also specifies the order in which this filter is applied to the findings.<br>    action      = string                   # (Required) Specifies the action that is to be applied to the findings that match the filter. Can be one of ARCHIVE or NOOP.<br>    tags        = map(string)              # (Optional) - The tags that you want to add to the Filter resource. A tag consists of a key and a value.<br>    criterion = list(object({              # (Represents the criteria to be used in the filter for querying findings. Contains one or more criterion blocks<br>      field                 = string       # (Required) The name of the field to be evaluated. The full list of field names can be found in AWS documentation.<br>      equals                = list(string) # (Optional) List of string values to be evaluated.<br>      not_equals            = list(string) # (Optional) List of string values to be evaluated.<br>      greater_than          = string       # (Optional) A value to be evaluated. Accepts either an integer or a date in RFC 3339 format.<br>      greater_than_or_equal = string       # (Optional) A value to be evaluated. Accepts either an integer or a date in RFC 3339 format.<br>      less_than             = string       # (Optional) A value to be evaluated. Accepts either an integer or a date in RFC 3339 format.<br>      less_than_or_equal    = string       # (Optional) A value to be evaluated. Accepts either an integer or a date in RFC 3339 format.<br>    }))<br>  })</pre> | `null` | no |
+| <a name="input_ipset"></a> [ipset](#input\_ipset) | GuardDuty ipset | <pre>object({<br>    activate = bool        # (Required) Specifies whether GuardDuty is to start using the uploaded IPSet.<br>    format   = string      # (Required) The format of the file that contains the IPSet. Valid values: TXT | STIX | OTX_CSV | ALIEN_VAULT | PROOF_POINT | FIRE_EYE<br>    location = string      # (Required) The URI of the file that contains the IPSet.<br>    name     = string      # (Required) The friendly name to identify the IPSet.<br>    tags     = map(string) # (Optional) Key-value map of resource tags.<br>  })</pre> | `null` | no |
+| <a name="input_publishing_destination"></a> [publishing\_destination](#input\_publishing\_destination) | GuardDuty publishing destination | <pre>object({<br>    destination_arn  = string # (Required) The bucket arn and prefix under which the findings get exported. Bucket-ARN is required, the prefix is optional and will be AWSLogs/[Account-ID]/GuardDuty/[Region]/ if not provided<br>    kms_key_arn      = string # (Required) The ARN of the KMS key used to encrypt GuardDuty findings. GuardDuty enforces this to be encrypted.<br>    destination_type = string # (Optional) Currently there is only "S3" available as destination type which is also the default value<br>  })</pre> | `null` | no |
+| <a name="input_threatintelset"></a> [threatintelset](#input\_threatintelset) | GuardDuty threatintelset | <pre>object({<br>    activate = bool        # (Required) Specifies whether GuardDuty is to start using the uploaded threatintelset.<br>    format   = string      # (Required) The format of the file that contains the threatintelset. Valid values: TXT | STIX | OTX_CSV | ALIEN_VAULT | PROOF_POINT | FIRE_EYE<br>    location = string      # (Required) The URI of the file that contains the threatintelset.<br>    name     = string      # (Required) The friendly name to identify the threatintelset.<br>    tags     = map(string) # (Optional) Key-value map of resource tags.<br>  })</pre> | `null` | no |
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_detector"></a> [detector](#output\_detector) | GuardDuty filter |
+| <a name="output_filter"></a> [filter](#output\_filter) | GuardDuty filter |
+| <a name="output_ipset"></a> [ipset](#output\_ipset) | GuardDuty ipset |
+| <a name="output_publishing_destination"></a> [publishing\_destination](#output\_publishing\_destination) | GuardDuty publishing destination |
+| <a name="output_threatintelset"></a> [threatintelset](#output\_threatintelset) | GuardDuty threatintelset |
 
 <!-- END TFDOCS -->

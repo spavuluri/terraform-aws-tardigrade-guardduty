@@ -8,7 +8,7 @@ output "guardduty_member" {
   value       = aws_guardduty_member.this
 }
 
-output "guardduty_nvite_accepter" {
+output "guardduty_invite_accepter" {
   description = "GuardDuty aws_guardduty_invite_accepter"
   value       = aws_guardduty_invite_accepter.this
 }

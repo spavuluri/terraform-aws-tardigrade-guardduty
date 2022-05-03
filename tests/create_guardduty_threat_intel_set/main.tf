@@ -1,3 +1,6 @@
+# Creates a GuardDuty threatintelset for this account.
+# - Creates a GuardDuty detector for this account
+# - Creates a GuardDuty threatintelset for this account
 module "guardduty_threatintelset" {
   source = "../../"
 

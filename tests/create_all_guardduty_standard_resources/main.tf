@@ -1,4 +1,10 @@
-module "guardduty_threatintelset_ipset_filter" {
+# Creates all GuardDuty standard resources for this account.
+# - Creates a GuardDuty detector for this account
+# - Creates a GuardDuty filter for this account
+# - Creates a GuardDuty ipset for this account
+# - Creates a GuardDuty threatintelset for this account
+# - Creates a GuardDuty publishing_destination for this account
+module "guardduty_standard_resources" {
   source = "../../"
 
   enable = true

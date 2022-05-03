@@ -1,3 +1,6 @@
+# Creates a GuardDuty publishing_destination for this account.
+# - Creates a GuardDuty detector for this account
+# - Creates a GuardDuty publishing_destination for this account
 module "guardduty_publishing_destination" {
   source = "../../"
 

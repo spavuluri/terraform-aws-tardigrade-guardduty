@@ -1,3 +1,10 @@
+# Invites a member account to join an administrator account GuardDuty organization.
+# - Creates a GuardDuty detector for the member account
+# - Creates a GuardDuty member resource in the administrator account which imnvites the member account to join the administrator account GuardDuty organization.
+# - Creates a GuardDuty invite accepter in the member account to accept the invite from the administrator account
+#
+# Prerequisites:  The administrator account GuardDuty detector must already be enabled
+
 # Create GuardDuty detector for the member account
 resource "aws_guardduty_detector" "this" {
   enable = var.enable

@@ -1,3 +1,6 @@
+# Creates a GuardDuty ipset for this account.
+# - Creates a GuardDuty detector for this account
+# - Creates a GuardDuty ipset for this account
 module "guardduty_ipset" {
   source = "../../"
 

@@ -1,5 +1,5 @@
 variable "enable" {
-  description = "(Optional) Enable monitoring and feedback reporting. Setting to false is equivalent to 'suspending'GuardDuty. Defaults to true."
+  description = "(Optional) Enable GuardDuty monitoring and feedback reporting. Setting to false is equivalent to 'suspending'GuardDuty. Defaults to true."
   type        = bool
   default     = true
 }
