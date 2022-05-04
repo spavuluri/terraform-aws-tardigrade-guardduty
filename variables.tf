@@ -22,7 +22,7 @@ variable "filter" {
       less_than_or_equal    = string       # (Optional) A value to be evaluated. Accepts either an integer or a date in RFC 3339 format.
     }))
   }))
-  default = null
+  default = []
 }
 
 variable "ipset" {
