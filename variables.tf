@@ -6,7 +6,7 @@ variable "enable" {
 
 variable "filter" {
   description = "GuardDuty filter configuration"
-  type = object({
+  type = list(object({
     name        = string                   # (Required) The name of your filter.  SPACES ARE NOT ALOWED
     description = string                   # (Optional) Description of the filter.
     rank        = number                   # (Required) Specifies the position of the filter in the list of current filters. Also specifies the order in which this filter is applied to the findings.
@@ -21,7 +21,7 @@ variable "filter" {
       less_than             = string       # (Optional) A value to be evaluated. Accepts either an integer or a date in RFC 3339 format.
       less_than_or_equal    = string       # (Optional) A value to be evaluated. Accepts either an integer or a date in RFC 3339 format.
     }))
-  })
+  }))
   default = null
 }
 

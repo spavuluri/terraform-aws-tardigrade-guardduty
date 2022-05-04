@@ -16,17 +16,17 @@ resource "aws_guardduty_detector" "this" {
 
 # Creates a GuardDuty filter for this account if the filter var is not null.
 resource "aws_guardduty_filter" "this" {
-  count = var.filter == null ? 0 : 1
+  for_each = { for filter in var.filter : filter.name => filter }
 
   detector_id = aws_guardduty_detector.this.id
-  name        = var.filter.name
-  description = var.filter.description
-  rank        = var.filter.rank
-  action      = var.filter.action
-  tags        = var.filter.tags
+  name        = each.value.name
+  description = each.value.description
+  rank        = each.value.rank
+  action      = each.value.action
+  tags        = each.value.tags
   finding_criteria {
     dynamic "criterion" {
-      for_each = var.filter.criterion
+      for_each = each.value.criterion
       content {
         field                 = criterion.value.field
         equals                = criterion.value.equals
