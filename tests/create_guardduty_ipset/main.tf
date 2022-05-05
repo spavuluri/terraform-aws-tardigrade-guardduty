@@ -6,15 +6,26 @@ module "guardduty_ipset" {
 
   enable = true
 
-  ipset = {
-    name     = "MyIpset"
-    activate = true
-    format   = "TXT"
-    location = "https://s3.amazonaws.com/${aws_s3_object.ipSet.bucket}/${aws_s3_object.ipSet.key}"
-    tags = {
-      environment = "testing"
-    }
-  }
+  ipset = [
+    {
+      name     = "Ipset1"
+      activate = true
+      format   = "TXT"
+      location = "https://s3.amazonaws.com/${aws_s3_object.ipSet1.bucket}/${aws_s3_object.ipSet1.key}"
+      tags = {
+        environment = "testing"
+      }
+    } /*,  Can only set one ipset in without a limit increase
+    {
+      name     = "Ipset2"
+      activate = true
+      format   = "TXT"
+      location = "https://s3.amazonaws.com/${aws_s3_object.ipSet2.bucket}/${aws_s3_object.ipSet2.key}"
+      tags = {
+        environment = "testing"
+      }
+    }*/
+  ]
 }
 
 resource "random_id" "name" {
@@ -35,9 +46,16 @@ resource "aws_s3_bucket_acl" "bucket_acl" {
   acl    = "public-read"
 }
 
-resource "aws_s3_object" "ipSet" {
+resource "aws_s3_object" "ipSet1" {
   acl     = "public-read"
-  content = "10.0.0.0/8\n"
+  content = "10.10.0.0/8\n"
   bucket  = aws_s3_bucket.bucket.id
-  key     = "MyIpSet"
+  key     = "IpSet1"
+}
+
+resource "aws_s3_object" "ipSet2" {
+  acl     = "public-read"
+  content = "10.20.0.0/8\n"
+  bucket  = aws_s3_bucket.bucket.id
+  key     = "IpSet2"
 }

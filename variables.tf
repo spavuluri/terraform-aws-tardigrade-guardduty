@@ -27,26 +27,26 @@ variable "filter" {
 
 variable "ipset" {
   description = "GuardDuty ipset"
-  type = object({
+  type = list(object({
     activate = bool        # (Required) Specifies whether GuardDuty is to start using the uploaded IPSet.
     format   = string      # (Required) The format of the file that contains the IPSet. Valid values: TXT | STIX | OTX_CSV | ALIEN_VAULT | PROOF_POINT | FIRE_EYE
     location = string      # (Required) The URI of the file that contains the IPSet.
     name     = string      # (Required) The friendly name to identify the IPSet.
     tags     = map(string) # (Optional) Key-value map of resource tags.
-  })
-  default = null
+  }))
+  default = []
 }
 
 variable "threatintelset" {
   description = "GuardDuty threatintelset"
-  type = object({
+  type = list(object({
     activate = bool        # (Required) Specifies whether GuardDuty is to start using the uploaded threatintelset.
     format   = string      # (Required) The format of the file that contains the threatintelset. Valid values: TXT | STIX | OTX_CSV | ALIEN_VAULT | PROOF_POINT | FIRE_EYE
     location = string      # (Required) The URI of the file that contains the threatintelset.
     name     = string      # (Required) The friendly name to identify the threatintelset.
     tags     = map(string) # (Optional) Key-value map of resource tags.
-  })
-  default = null
+  }))
+  default = []
 }
 
 variable "publishing_destination" {

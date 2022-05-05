@@ -60,25 +60,47 @@ module "guardduty_standard_resources" {
     }
   ]
 
-  threatintelset = {
-    name     = "MyThreatIntelSet"
-    activate = true
-    format   = "TXT"
-    location = "https://s3.amazonaws.com/${aws_s3_object.MyThreatIntelSet.bucket}/${aws_s3_object.MyThreatIntelSet.key}"
-    tags = {
-      environment = "testing"
+  threatintelset = [
+    {
+      name     = "ThreatIntelSet1"
+      activate = true
+      format   = "TXT"
+      location = "https://s3.amazonaws.com/${aws_s3_object.ThreatIntelSet1.bucket}/${aws_s3_object.ThreatIntelSet1.key}"
+      tags = {
+        environment = "testing"
+      }
+    },
+    {
+      name     = "ThreatIntelSet2"
+      activate = true
+      format   = "TXT"
+      location = "https://s3.amazonaws.com/${aws_s3_object.ThreatIntelSet2.bucket}/${aws_s3_object.ThreatIntelSet2.key}"
+      tags = {
+        environment = "testing"
+      }
     }
-  }
+  ]
 
-  ipset = {
-    name     = "MyIpset"
-    activate = true
-    format   = "TXT"
-    location = "https://s3.amazonaws.com/${aws_s3_object.ipSet.bucket}/${aws_s3_object.ipSet.key}"
-    tags = {
-      environment = "testing"
-    }
-  }
+  ipset = [
+    {
+      name     = "Ipset1"
+      activate = true
+      format   = "TXT"
+      location = "https://s3.amazonaws.com/${aws_s3_object.ipSet1.bucket}/${aws_s3_object.ipSet1.key}"
+      tags = {
+        environment = "testing"
+      }
+    } /*,  Can only set one ipset in without a limit increase
+    {
+      name     = "Ipset2"
+      activate = true
+      format   = "TXT"
+      location = "https://s3.amazonaws.com/${aws_s3_object.ipSet2.bucket}/${aws_s3_object.ipSet2.key}"
+      tags = {
+        environment = "testing"
+      }
+    }*/
+  ]
 
   publishing_destination = {
     destination_arn  = aws_s3_bucket.bucket.arn
@@ -189,16 +211,30 @@ resource "aws_kms_key" "gd_key" {
   policy                  = data.aws_iam_policy_document.kms_pol.json
 }
 
-resource "aws_s3_object" "MyThreatIntelSet" {
+resource "aws_s3_object" "ThreatIntelSet1" {
   acl     = "public-read"
   content = "10.0.0.0/8\n"
   bucket  = aws_s3_bucket.bucket.id
-  key     = "MyThreatIntelSet"
+  key     = "ThreatIntelSet1"
 }
 
-resource "aws_s3_object" "ipSet" {
+resource "aws_s3_object" "ThreatIntelSet2" {
   acl     = "public-read"
-  content = "10.0.0.0/8\n"
+  content = "10.10.0.0/8\n"
   bucket  = aws_s3_bucket.bucket.id
-  key     = "MyIpSet"
+  key     = "ThreatIntelSet2"
+}
+
+resource "aws_s3_object" "ipSet1" {
+  acl     = "public-read"
+  content = "10.20.0.0/8\n"
+  bucket  = aws_s3_bucket.bucket.id
+  key     = "IpSet1"
+}
+
+resource "aws_s3_object" "ipSet2" {
+  acl     = "public-read"
+  content = "10.30.0.0/8\n"
+  bucket  = aws_s3_bucket.bucket.id
+  key     = "IpSet2"
 }

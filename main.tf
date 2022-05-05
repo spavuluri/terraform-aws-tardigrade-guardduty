@@ -42,26 +42,26 @@ resource "aws_guardduty_filter" "this" {
 
 # Creates a GuardDuty ipset for this account if the ipset var is not null.
 resource "aws_guardduty_ipset" "this" {
-  count = var.ipset == null ? 0 : 1
+  for_each = { for ipset in var.ipset : ipset.name => ipset }
 
   detector_id = aws_guardduty_detector.this.id
-  activate    = var.ipset.activate
-  format      = var.ipset.format
-  location    = var.ipset.location
-  name        = var.ipset.name
-  tags        = var.ipset.tags
+  activate    = each.value.activate
+  format      = each.value.format
+  location    = each.value.location
+  name        = each.value.name
+  tags        = each.value.tags
 }
 
 # Creates a GuardDuty threatintelset for this account if the threatintelset var is not null.
 resource "aws_guardduty_threatintelset" "this" {
-  count = var.threatintelset == null ? 0 : 1
+  for_each = { for threatintelset in var.threatintelset : threatintelset.name => threatintelset }
 
   detector_id = aws_guardduty_detector.this.id
-  activate    = var.threatintelset.activate
-  format      = var.threatintelset.format
-  location    = var.threatintelset.location
-  name        = var.threatintelset.name
-  tags        = var.threatintelset.tags
+  activate    = each.value.activate
+  format      = each.value.format
+  location    = each.value.location
+  name        = each.value.name
+  tags        = each.value.tags
 }
 
 # Creates a GuardDuty publishing_destination for this account if the publishing_destination var is not null.
