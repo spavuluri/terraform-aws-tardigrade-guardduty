@@ -1,9 +1,9 @@
-# This file creates a standard GuardDuty configuration in a single AWS account.  These include a GuardDuty detector, filter, ipset, threatintelset, and publshing destination.  GuardDuty configurations that require multiple AWS accounts are not included in this module, and the terraform code for those configurations has been implemented in seperate submodeles (see the modules section of this project).
+# This file creates a standard GuardDuty configuration in a single AWS account.  These include a GuardDuty detector, filters, ipsets, threatintelsets, and publshing destination.  GuardDuty configurations that require multiple AWS accounts are not included in this module, and the terraform code for those configurations has been implemented in seperate submodeles (see the modules section of this project).
 #
 # - Creates a GuardDuty detector for this account
-# - Creates zero or more GuardDuty filters for this account if the filter var is not null.
-# - Creates zero or more GuardDuty ipsets for this account if the ipset var is not null.
-# - Creates zero or more GuardDuty threatintelsets for this account if the threatintelset var is not null.
+# - Creates one or more GuardDuty filters for this account if the filter var is not empty.
+# - Creates one or more GuardDuty ipsets for this account if the ipset var is not empty.
+# - Creates one or more GuardDuty threatintelsets for this account if the threatintelset var is not empty.
 # - Creates a GuardDuty publishing_destination for this account if the publishing_destination var is not null.
 #
 # Prerequisites:  This publishing_destination resource assumes the S3 bucket associated with the destination arn exists and the required policies have been created to
@@ -14,7 +14,7 @@ resource "aws_guardduty_detector" "this" {
   enable = var.enable
 }
 
-# Creates zero or more GuardDuty filters for this account if the filter var is not null.
+# Creates one or more GuardDuty filters for this account if the filter var is not empty.
 resource "aws_guardduty_filter" "this" {
   for_each = { for filter in var.filter : filter.name => filter }
 
@@ -40,7 +40,7 @@ resource "aws_guardduty_filter" "this" {
   }
 }
 
-# Creates zero or more GuardDuty ipsets for this account if the ipset var is not null.
+# Creates one or more GuardDuty ipsets for this account if the ipset var is not empty.
 resource "aws_guardduty_ipset" "this" {
   for_each = { for ipset in var.ipset : ipset.name => ipset }
 
@@ -52,7 +52,7 @@ resource "aws_guardduty_ipset" "this" {
   tags        = each.value.tags
 }
 
-# Creates zero or more GuardDuty threatintelsets for this account if the threatintelset var is not null.
+# Creates one or more GuardDuty threatintelsets for this account if the threatintelset var is not empty.
 resource "aws_guardduty_threatintelset" "this" {
   for_each = { for threatintelset in var.threatintelset : threatintelset.name => threatintelset }
 
