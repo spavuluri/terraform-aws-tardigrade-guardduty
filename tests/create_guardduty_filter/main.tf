@@ -1,6 +1,6 @@
 # Creates a GuardDuty filter for this account.
 # - Creates a GuardDuty detector for this account
-# - Creates a GuardDuty filter for this account
+# - Creates two GuardDuty filters for this account
 module "guardduty_filter" {
   source = "../../"
 

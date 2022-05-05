@@ -1,8 +1,8 @@
 # Creates all GuardDuty standard resources for this account.
 # - Creates a GuardDuty detector for this account
-# - Creates a GuardDuty filter for this account
-# - Creates a GuardDuty ipset for this account
-# - Creates a GuardDuty threatintelset for this account
+# - Creates two GuardDuty filters for this account
+# - Creates a GuardDuty ipset for this account.  Must increase AWS limits to create more than one ipset.
+# - Creates two GuardDuty threatintelsets for this account
 # - Creates a GuardDuty publishing_destination for this account
 module "guardduty_standard_resources" {
   source = "../../"
