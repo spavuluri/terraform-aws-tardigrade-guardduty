@@ -26,7 +26,8 @@ resource "aws_organizations_organization" "this" {
 module "guardduty_org_admin_account" {
   source = "../../modules/guardduty-org-admin-account"
 
-  enable = true
+  enable                          = true
+  guardduty_administrator_account = null
 
   providers = {
     aws                         = aws # Current caller identity and AWS org account
