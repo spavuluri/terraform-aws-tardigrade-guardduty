@@ -1,4 +1,4 @@
-# terraform-aws-tardigrade-guardduty/org_admin_account
+# terraform-aws-tardigrade-guardduty/organization_admin
 
 Terraform module for managing a GuardDuty org_admin_account.
 Creates a GuardDuty org administrator account in an AWS organization.  Once created, all AWS accounts added to the AWS organization will be enrolled in GuardDuty and managed by the delegated GuardDuty org administrator account

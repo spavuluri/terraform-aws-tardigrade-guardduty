@@ -12,14 +12,12 @@ resource "aws_guardduty_detector" "this" {
 
 # Create GuardDuty member in the administrator account
 resource "aws_guardduty_member" "this" {
-  count = var.member == null ? 0 : 1
-
   provider = aws.administrator
 
   account_id                 = aws_guardduty_detector.this.account_id
   detector_id                = data.aws_guardduty_detector.administrator.id
   email                      = var.member.email
-  invite                     = var.member.invite
+  invite                     = true
   invitation_message         = var.member.invitation_message
   disable_email_notification = var.member.disable_email_notification
 

@@ -4,7 +4,7 @@ variable "enable" {
   default     = true
 }
 
-variable "guardduty_administrator_account" {
+variable "delegated_administrator_account" {
   description = "(Required) AWS account identifier to designate as a delegated administrator for GuardDuty."
   type        = string
 }

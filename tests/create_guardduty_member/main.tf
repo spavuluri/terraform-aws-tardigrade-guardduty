@@ -22,7 +22,7 @@ resource "aws_guardduty_detector" "administrator" {
 # - Creates a GuardDuty member resource in the administrator account which imnvites the member account to join the administrator account GuardDuty organization.
 # - Creates a GuardDuty invite accepter in the member account to accept the invite from the administrator account
 module "guardduty_member" {
-  source = "../../modules/guardduty-member-account"
+  source = "../../modules/member"
 
   enable = true
 

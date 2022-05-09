@@ -6,7 +6,7 @@ module "guardduty_threatintelset" {
 
   enable = true
 
-  threatintelset = [
+  threatintelsets = [
     {
       name     = "ThreatIntelSet1"
       activate = true
@@ -39,11 +39,6 @@ resource "aws_s3_bucket" "bucket" {
   tags = {
     environment = "testing"
   }
-}
-
-resource "aws_s3_bucket_acl" "bucket_acl" {
-  bucket = aws_s3_bucket.bucket.id
-  acl    = "public-read"
 }
 
 resource "aws_s3_object" "ThreatIntelSet1" {

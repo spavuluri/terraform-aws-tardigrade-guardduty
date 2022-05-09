@@ -9,7 +9,7 @@ module "guardduty_standard_resources" {
 
   enable = true
 
-  filter = [
+  filters = [
     {
       name        = "Filter1"
       description = "My Filter 1"
@@ -60,7 +60,7 @@ module "guardduty_standard_resources" {
     }
   ]
 
-  threatintelset = [
+  threatintelsets = [
     {
       name     = "ThreatIntelSet1"
       activate = true
@@ -81,7 +81,7 @@ module "guardduty_standard_resources" {
     }
   ]
 
-  ipset = [
+  ipsets = [
     {
       name     = "Ipset1"
       activate = true
@@ -90,7 +90,7 @@ module "guardduty_standard_resources" {
       tags = {
         environment = "testing"
       }
-    } /*,  Can only set one ipset in without a limit increase
+    } /*,  Can only set one ipset without an AWS limit increase
     {
       name     = "Ipset2"
       activate = true
@@ -193,11 +193,6 @@ resource "aws_s3_bucket" "bucket" {
   tags = {
     environment = "testing"
   }
-}
-
-resource "aws_s3_bucket_acl" "bucket_acl" {
-  bucket = aws_s3_bucket.bucket.id
-  acl    = "public-read"
 }
 
 resource "aws_s3_bucket_policy" "gd_bucket_policy" {

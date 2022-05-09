@@ -24,10 +24,10 @@ resource "aws_organizations_organization" "this" {
 #
 # Prerequisites:  The AWS org must already exist
 module "guardduty_org_admin_account" {
-  source = "../../modules/guardduty-org-admin-account"
+  source = "../../modules/org-admin-account"
 
   enable                          = true
-  guardduty_administrator_account = null
+  delegated_administrator_account = null
 
   providers = {
     aws                         = aws # Current caller identity and AWS org account

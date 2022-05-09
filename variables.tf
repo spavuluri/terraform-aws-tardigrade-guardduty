@@ -4,8 +4,24 @@ variable "enable" {
   default     = true
 }
 
-variable "filter" {
-  description = "GuardDuty filter configuration"
+variable "enable_s3_protection" {
+  description = "(Required) If true, enables S3 Protection. Defaults to true."
+  type        = bool
+  default     = true
+}
+
+variable "finding_publishing_frequency" {
+  description = "(Optional) Specifies the frequency of notifications sent for subsequent finding occurrences. If the detector is a GuardDuty member account, the value is determined by the GuardDuty primary account and cannot be modified, otherwise defaults to SIX_HOURS. For standalone and GuardDuty primary accounts, it must be configured in Terraform to enable drift detection. Valid values for standalone and primary accounts: FIFTEEN_MINUTES, ONE_HOUR, SIX_HOURS."
+  type        = string
+  default     = "SIX_HOURS"
+  validation {
+    condition     = var.finding_publishing_frequency != null ? contains(["FIFTEEN_MINUTES", "ONE_HOUR", "SIX_HOURS"], var.finding_publishing_frequency) : true
+    error_message = "The aws_guardduty_detector finding_publishing_frequency value is not valid. Valid values: FIFTEEN_MINUTES, ONE_HOUR, or SIX_HOURS."
+  }
+}
+
+variable "filters" {
+  description = "GuardDuty filter configuration list"
   type = list(object({
     name        = string                   # (Required) The name of your filter.  SPACES ARE NOT ALOWED
     description = string                   # (Optional) Description of the filter.
@@ -25,8 +41,8 @@ variable "filter" {
   default = []
 }
 
-variable "ipset" {
-  description = "GuardDuty ipset"
+variable "ipsets" {
+  description = "GuardDuty ipset list"
   type = list(object({
     activate = bool        # (Required) Specifies whether GuardDuty is to start using the uploaded IPSet.
     format   = string      # (Required) The format of the file that contains the IPSet. Valid values: TXT | STIX | OTX_CSV | ALIEN_VAULT | PROOF_POINT | FIRE_EYE
@@ -37,8 +53,8 @@ variable "ipset" {
   default = []
 }
 
-variable "threatintelset" {
-  description = "GuardDuty threatintelset"
+variable "threatintelsets" {
+  description = "GuardDuty threatintelset list"
   type = list(object({
     activate = bool        # (Required) Specifies whether GuardDuty is to start using the uploaded threatintelset.
     format   = string      # (Required) The format of the file that contains the threatintelset. Valid values: TXT | STIX | OTX_CSV | ALIEN_VAULT | PROOF_POINT | FIRE_EYE

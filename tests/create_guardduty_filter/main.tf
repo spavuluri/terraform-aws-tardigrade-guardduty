@@ -6,7 +6,7 @@ module "guardduty_filter" {
 
   enable = true
 
-  filter = [
+  filters = [
     {
       name        = "Filter1"
       description = "My Filter 1"

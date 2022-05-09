@@ -11,12 +11,19 @@
 
 # Creates a GuardDuty detector for this account
 resource "aws_guardduty_detector" "this" {
-  enable = var.enable
+  enable                       = var.enable
+  finding_publishing_frequency = var.finding_publishing_frequency
+
+  datasources {
+    s3_logs {
+      enable = var.enable_s3_protection
+    }
+  }
 }
 
 # Creates one or more GuardDuty filters for this account if the filter var is not empty.
 resource "aws_guardduty_filter" "this" {
-  for_each = { for filter in var.filter : filter.name => filter }
+  for_each = { for filter in var.filters : filter.name => filter }
 
   detector_id = aws_guardduty_detector.this.id
   name        = each.value.name
@@ -42,7 +49,7 @@ resource "aws_guardduty_filter" "this" {
 
 # Creates one or more GuardDuty ipsets for this account if the ipset var is not empty.
 resource "aws_guardduty_ipset" "this" {
-  for_each = { for ipset in var.ipset : ipset.name => ipset }
+  for_each = { for ipset in var.ipsets : ipset.name => ipset }
 
   detector_id = aws_guardduty_detector.this.id
   activate    = each.value.activate
@@ -54,7 +61,7 @@ resource "aws_guardduty_ipset" "this" {
 
 # Creates one or more GuardDuty threatintelsets for this account if the threatintelset var is not empty.
 resource "aws_guardduty_threatintelset" "this" {
-  for_each = { for threatintelset in var.threatintelset : threatintelset.name => threatintelset }
+  for_each = { for threatintelset in var.threatintelsets : threatintelset.name => threatintelset }
 
   detector_id = aws_guardduty_detector.this.id
   activate    = each.value.activate
