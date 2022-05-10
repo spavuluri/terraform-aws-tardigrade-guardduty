@@ -14,14 +14,14 @@ Note: the implementation `tests/create_guardduty_member` will require you to pro
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.15 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.0 |
-| <a name="provider_aws.administrator"></a> [aws.administrator](#provider\_aws.administrator) | >= 4.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.0 |
+| <a name="provider_aws.administrator"></a> [aws.administrator](#provider\_aws.administrator) | >= 3.0 |
 
 ## Resources
 
@@ -34,15 +34,15 @@ Note: the implementation `tests/create_guardduty_member` will require you to pro
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_enable"></a> [enable](#input\_enable) | (Optional) Enable monitoring and feedback reporting. Setting to false is equivalent to 'suspending'GuardDuty. Defaults to true. | `bool` | `true` | no |
-| <a name="input_member"></a> [member](#input\_member) | GuardDuty member | <pre>object({<br>    email                      = string # (Required) Email address for member account.<br>    invite                     = string # ((Optional) Boolean whether to invite the account to GuardDuty as a member. Defaults to false.<br>    invitation_message         = string # (Optional) Message for invitation.<br>    disable_email_notification = bool   # (Optional) Boolean whether an email notification is sent to the accounts. Defaults to false.<br>  })</pre> | `null` | no |
+| <a name="input_enable"></a> [enable](#input\_enable) | (Optional) Enable monitoring and feedback reporting. Setting to false is equivalent to 'suspending' GuardDuty. Defaults to true. | `bool` | `true` | no |
+| <a name="input_member"></a> [member](#input\_member) | GuardDuty member | <pre>object({<br>    email                      = string # (Required) Email address for member account.<br>    invitation_message         = string # (Optional) Message for invitation.<br>    disable_email_notification = bool   # (Optional) Boolean whether an email notification is sent to the accounts. Defaults to false.<br>  })</pre> | `null` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_guardduty_invite_accepter"></a> [guardduty\_invite\_accepter](#output\_guardduty\_invite\_accepter) | GuardDuty aws\_guardduty\_invite\_accepter |
-| <a name="output_guardduty_member"></a> [guardduty\_member](#output\_guardduty\_member) | GuardDuty member configuration |
-| <a name="output_guardduty_member_detector"></a> [guardduty\_member\_detector](#output\_guardduty\_member\_detector) | GuardDuty member account detector |
+| <a name="output_detector"></a> [detector](#output\_detector) | GuardDuty member account detector |
+| <a name="output_invite_accepter"></a> [invite\_accepter](#output\_invite\_accepter) | GuardDuty aws\_guardduty\_invite\_accepter |
+| <a name="output_member"></a> [member](#output\_member) | GuardDuty member configuration |
 
 <!-- END TFDOCS -->

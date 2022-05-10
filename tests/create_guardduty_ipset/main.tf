@@ -42,14 +42,14 @@ resource "aws_s3_bucket" "bucket" {
 }
 
 resource "aws_s3_object" "ipSet1" {
-  acl     = "public-read"
+  acl     = "private"
   content = "10.10.0.0/8\n"
   bucket  = aws_s3_bucket.bucket.id
   key     = "IpSet1"
 }
 
 resource "aws_s3_object" "ipSet2" {
-  acl     = "public-read"
+  acl     = "private"
   content = "10.20.0.0/8\n"
   bucket  = aws_s3_bucket.bucket.id
   key     = "IpSet2"

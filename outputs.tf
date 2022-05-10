@@ -19,9 +19,5 @@ output "threatintelset" {
 
 output "publishing_destination" {
   description = "GuardDuty publishing destination"
-  value       = var.publishing_destination != null ? aws_guardduty_publishing_destination.this : null
+  value       = aws_guardduty_publishing_destination.this
 }
-
-
-
-

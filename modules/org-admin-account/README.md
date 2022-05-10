@@ -21,25 +21,24 @@ Prerequisites:  The AWS org must already exist
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.0 |
-| <a name="provider_aws.guardduty_administrator"></a> [aws.guardduty\_administrator](#provider\_aws.guardduty\_administrator) | >= 3.0 |
 
 ## Resources
 
 | Name | Type |
 |------|------|
-| [aws_caller_identity.primary](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_guardduty_administrator_account"></a> [guardduty\_administrator\_account](#input\_guardduty\_administrator\_account) | (Required) AWS account identifier to designate as a delegated administrator for GuardDuty. | `string` | n/a | yes |
+| <a name="input_delegated_administrator_account_detecter_id"></a> [delegated\_administrator\_account\_detecter\_id](#input\_delegated\_administrator\_account\_detecter\_id) | (Required) GuardDuty detector ID of the AWS account identifier to designate as a delegated administrator for GuardDuty. | `string` | n/a | yes |
+| <a name="input_delegated_administrator_account_id"></a> [delegated\_administrator\_account\_id](#input\_delegated\_administrator\_account\_id) | (Required) AWS account identifier to designate as a delegated administrator for GuardDuty. | `string` | n/a | yes |
 | <a name="input_enable"></a> [enable](#input\_enable) | (Optional) Enable monitoring and feedback reporting. Setting to false is equivalent to 'suspending'GuardDuty. Defaults to true. | `bool` | `true` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_org_admin_account"></a> [org\_admin\_account](#output\_org\_admin\_account) | GuardDuty Organization Admin Account |
+| <a name="output_organization_admin_account"></a> [organization\_admin\_account](#output\_organization\_admin\_account) | GuardDuty Organization Admin Account |
 
 <!-- END TFDOCS -->

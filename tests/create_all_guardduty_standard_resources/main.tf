@@ -207,28 +207,28 @@ resource "aws_kms_key" "gd_key" {
 }
 
 resource "aws_s3_object" "ThreatIntelSet1" {
-  acl     = "public-read"
+  acl     = "private"
   content = "10.0.0.0/8\n"
   bucket  = aws_s3_bucket.bucket.id
   key     = "ThreatIntelSet1"
 }
 
 resource "aws_s3_object" "ThreatIntelSet2" {
-  acl     = "public-read"
+  acl     = "private"
   content = "10.10.0.0/8\n"
   bucket  = aws_s3_bucket.bucket.id
   key     = "ThreatIntelSet2"
 }
 
 resource "aws_s3_object" "ipSet1" {
-  acl     = "public-read"
+  acl     = "private"
   content = "10.20.0.0/8\n"
   bucket  = aws_s3_bucket.bucket.id
   key     = "IpSet1"
 }
 
 resource "aws_s3_object" "ipSet2" {
-  acl     = "public-read"
+  acl     = "private"
   content = "10.30.0.0/8\n"
   bucket  = aws_s3_bucket.bucket.id
   key     = "IpSet2"

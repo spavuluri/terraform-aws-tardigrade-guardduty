@@ -1,14 +1,14 @@
 # AWS provider account for the AWS organization
 provider "aws" {
   region  = "us-east-1"
-  profile = "plus3it-management" # Profile must exist in your .aws/config
+  profile = "aws" # Profile must exist in your .aws/config
 }
 
 # AWS provider account for the GuardDuty org administrator account
 provider "aws" {
   region  = "us-east-1"
   alias   = "guardduty_administrator"
-  profile = "plus3it-member" # Profile must exist in your .aws/config
+  profile = "awsalternate" # Profile must exist in your .aws/config
 }
 
 # Create AWS Organization in the this account
@@ -29,7 +29,6 @@ data "aws_caller_identity" "administrator" {
 }
 
 # Create a GuardDuty org administrator account in the AWS organization
-# - Creates a GuardDuty detector for the org's GuardDuty administrator account
 # - Creates a GuardDuty organization administrator account
 # - Configures the delegated GuardDuty administrator organization configuration
 #

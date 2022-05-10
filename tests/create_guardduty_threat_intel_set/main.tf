@@ -42,14 +42,14 @@ resource "aws_s3_bucket" "bucket" {
 }
 
 resource "aws_s3_object" "ThreatIntelSet1" {
-  acl     = "public-read"
+  acl     = "private"
   content = "10.0.0.0/8\n"
   bucket  = aws_s3_bucket.bucket.id
   key     = "ThreatIntelSet1"
 }
 
 resource "aws_s3_object" "ThreatIntelSet2" {
-  acl     = "public-read"
+  acl     = "private"
   content = "10.0.0.0/8\n"
   bucket  = aws_s3_bucket.bucket.id
   key     = "ThreatIntelSet2"
