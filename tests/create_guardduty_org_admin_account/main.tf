@@ -17,13 +17,13 @@ resource "aws_organizations_organization" "this" {
   feature_set                   = "ALL"
 }
 
-# Create GuardDuty detector for the organization's GuardDuty administrator account
+# Create GuardDuty detector for the organization's delegated GuardDuty administrator account
 resource "aws_guardduty_detector" "guardduty_administrator" {
   provider = aws.guardduty_administrator
   enable   = true
 }
 
-# Get the current caller identity to use to get the primary account ID
+# Get the current caller identity of the organization's delegated GuardDuty administrator account to use to get its account ID
 data "aws_caller_identity" "administrator" {
   provider = aws.guardduty_administrator
 }
@@ -39,11 +39,6 @@ module "guardduty_org_admin_account" {
   enable                                      = true
   delegated_administrator_account_id          = data.aws_caller_identity.administrator.account_id
   delegated_administrator_account_detecter_id = aws_guardduty_detector.guardduty_administrator.id
-
-  providers = {
-    aws                         = aws # Current caller identity and AWS org account
-    aws.guardduty_administrator = aws.guardduty_administrator
-  }
 
   depends_on = [aws_organizations_organization.this]
 }
