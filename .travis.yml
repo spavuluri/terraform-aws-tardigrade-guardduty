@@ -44,8 +44,7 @@ jobs:
           (set -x; git tag -a $RELEASE_VERSION -m $RELEASE_VERSION)
       deploy:
         provider: releases
-        token:
-          secure: Fs3VDzdOF1ODrgowGXErtRCpL8cZLtJQ4sLrcpgW9rxOi/rJfNteiHoN8uWoxk2RKgYiimB1NsOxpI+LS9PueygoDseCRDTAQdJnR1NKG+r0dk2aEPmoDKX8vLy1DNjhGkLr/tsdR4ABbV5CYzgJskpoSzTHoZVK5mUC3oTieGj9w6PqYrdpmKN/lFOTqipWmkt7KYHbkxgmrtpLzr3mACR18Q5flznCQ1tVLkLXQBRsCV0THV9zTm+3OS/F7u/s9vd4I329bRc6RVUnjtvL19ydKXbCUDi557q+RMchOwTaWyPJiDfxPovQMDr2iJsCvnm89zOXPgkUAv1u550Ir+cJE7cqWwWi2eEz1Cd8pNy9qFeFbyE+Y4O8K4r0Gw2PgB8qPpy/qshNbg6WB1cFZLm6tvZ320PGV6e20+lojimw3+FgpHCfT79b9oXWC8Of/w0lg1btb9SHa7tHhPF0rbDgPN+l5N01q5jrndIV87rHc+bBhMu3PFix051fBlZ2slIO1SIS5817grpW/FFNdkw5bmADfQnzxSss8QsimIF5oa0i72vViNyrEUE1D/ssyBJpAuM/0ZSUWCuRpQFgNlppTYVS2W3dh0+8bTdDnIqrPIh9y/iTVBa0bsZbF9XcqAVBE5u+boyQfcCBF32+0yThn2breWgC31BEYFD3rc4=
+        token: $GH_RELEASES_TOKEN
         name: $RELEASE_VERSION
         release_notes: $RELEASE_BODY
         tag_name: $RELEASE_VERSION
