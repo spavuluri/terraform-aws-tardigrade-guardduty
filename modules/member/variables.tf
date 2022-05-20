@@ -11,5 +11,4 @@ variable "member" {
     invitation_message         = string # (Optional) Message for invitation.
     disable_email_notification = bool   # (Optional) Boolean whether an email notification is sent to the accounts. Defaults to false.
   })
-  default = null
 }
