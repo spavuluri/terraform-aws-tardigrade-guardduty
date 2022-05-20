@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+### 3.0.0
+
+**Released**: 2022.05.20
+
+**Commit Delta**: [Change from 2.0.1 release](https://github.com/plus3it/terraform-aws-tardigrade-guardduty/compare/2.0.1...3.0.0)
+
+**Summary**:
+
+*   GuardDuty rewrite
+*   Allows all standard GuardDuty resources to be created in the main module
+*   Adds submodules for creasting GuardDuty member and administration org resourcdes
+
 ### 1.0.3
 
 **Released**: 2019.10.28
