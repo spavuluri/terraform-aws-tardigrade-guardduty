@@ -38,8 +38,6 @@ resource "aws_guardduty_member" "this" {
 
 # Create GuardDuty invite accepter in the member account
 resource "aws_guardduty_invite_accepter" "this" {
-  count = var.member == null ? 0 : 1
-
   detector_id       = aws_guardduty_detector.this.id
   master_account_id = data.aws_caller_identity.administrator.account_id
 
