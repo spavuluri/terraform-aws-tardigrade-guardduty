@@ -24,7 +24,11 @@ resource "aws_guardduty_detector" "administrator" {
 module "guardduty_member" {
   source = "../../modules/member"
 
-  enable = true
+  enable                       = true
+  enable_s3_protection         = true
+  enable_kubernetes_protection = true
+  enable_malware_protection    = true
+  finding_publishing_frequency = "SIX_HOURS"
 
   providers = {
     aws               = aws
@@ -45,4 +49,5 @@ module "guardduty_member" {
 variable "member_email" {
   description = "Email address associated with the member account. Required input for the Guardduty member invitation."
   type        = string
+  default     = "john.doe@dummy.com"
 }

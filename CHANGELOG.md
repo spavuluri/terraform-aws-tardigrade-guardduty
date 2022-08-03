@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+### 3.1.0
+
+**Released**: 2022.08.03
+
+**Commit Delta**: [Change from 3.0.1 release](https://github.com/plus3it/terraform-aws-tardigrade-guardduty/compare/3.0.1...3.1.0)
+
+**Summary**:
+
+*   Adds GuardDuty detector and organization configuration malware protection attributes introduced in aws provider version 4.24
+
 ### 3.0.1
 
 **Released**: 2022.05.27

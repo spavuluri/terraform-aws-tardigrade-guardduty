@@ -33,7 +33,10 @@ Prerequisites:  The AWS org must already exist
 |------|-------------|------|---------|:--------:|
 | <a name="input_delegated_administrator_account_detecter_id"></a> [delegated\_administrator\_account\_detecter\_id](#input\_delegated\_administrator\_account\_detecter\_id) | (Required) GuardDuty detector ID of the AWS account identifier to designate as a delegated administrator for GuardDuty. | `string` | n/a | yes |
 | <a name="input_delegated_administrator_account_id"></a> [delegated\_administrator\_account\_id](#input\_delegated\_administrator\_account\_id) | (Required) AWS account identifier to designate as a delegated administrator for GuardDuty. | `string` | n/a | yes |
+| <a name="input_auto_enable_malware_protection"></a> [auto\_enable\_malware\_protection](#input\_auto\_enable\_malware\_protection) | (Required) If true, enables S3 Protection. Defaults to true. | `bool` | `true` | no |
+| <a name="input_auto_enable_s3_protection"></a> [auto\_enable\_s3\_protection](#input\_auto\_enable\_s3\_protection) | (Required) If true, enables S3 Protection. Defaults to true. | `bool` | `true` | no |
 | <a name="input_enable"></a> [enable](#input\_enable) | (Optional) Enable monitoring and feedback reporting. Setting to false is equivalent to 'suspending'GuardDuty. Defaults to true. | `bool` | `true` | no |
+| <a name="input_enable_kubernetes_protection"></a> [enable\_kubernetes\_protection](#input\_enable\_kubernetes\_protection) | (Required) If true, enables S3 Protection. Defaults to true. | `bool` | `true` | no |
 
 ## Outputs
 
