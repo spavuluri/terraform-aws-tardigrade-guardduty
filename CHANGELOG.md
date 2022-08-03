@@ -12,7 +12,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 **Summary**:
 
-*   Adds GuardDuty detector and organization configuration malware protection attributes introduced in aws provider version 4.24
+*   Adds GuardDuty detector and organization configuration malware and kubernetes protection attributes introduced in aws provider version 4.24
 
 ### 3.0.1
 
