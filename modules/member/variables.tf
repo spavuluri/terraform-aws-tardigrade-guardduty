@@ -4,6 +4,34 @@ variable "enable" {
   default     = true
 }
 
+variable "enable_s3_protection" {
+  description = "(Required) If true, enables S3 Protection. Defaults to true."
+  type        = bool
+  default     = true
+}
+
+variable "enable_kubernetes_protection" {
+  description = "(Required) If true, enables S3 Protection. Defaults to true."
+  type        = bool
+  default     = true
+}
+
+variable "enable_malware_protection" {
+  description = "(Required) If true, enables S3 Protection. Defaults to true."
+  type        = bool
+  default     = true
+}
+
+variable "finding_publishing_frequency" {
+  description = "(Optional) Specifies the frequency of notifications sent for subsequent finding occurrences. If the detector is a GuardDuty member account, the value is determined by the GuardDuty primary account and cannot be modified, otherwise defaults to SIX_HOURS. For standalone and GuardDuty primary accounts, it must be configured in Terraform to enable drift detection. Valid values for standalone and primary accounts: FIFTEEN_MINUTES, ONE_HOUR, SIX_HOURS."
+  type        = string
+  default     = "SIX_HOURS"
+  validation {
+    condition     = var.finding_publishing_frequency != null ? contains(["FIFTEEN_MINUTES", "ONE_HOUR", "SIX_HOURS"], var.finding_publishing_frequency) : true
+    error_message = "The aws_guardduty_detector finding_publishing_frequency value is not valid. Valid values: FIFTEEN_MINUTES, ONE_HOUR, or SIX_HOURS."
+  }
+}
+
 variable "member" {
   description = "GuardDuty member"
   type = object({

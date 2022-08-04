@@ -1,5 +1,5 @@
 output "detector" {
-  description = "GuardDuty filter"
+  description = "GuardDuty detector"
   value       = aws_guardduty_detector.this
 }
 output "filter" {

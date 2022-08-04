@@ -39,6 +39,9 @@ module "guardduty_org_admin_account" {
   enable                                      = true
   delegated_administrator_account_id          = data.aws_caller_identity.administrator.account_id
   delegated_administrator_account_detecter_id = aws_guardduty_detector.guardduty_administrator.id
+  auto_enable_s3_protection                   = true
+  enable_kubernetes_protection                = true
+  auto_enable_malware_protection              = true
 
   depends_on = [aws_organizations_organization.this]
 }

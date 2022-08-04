@@ -10,6 +10,18 @@ variable "enable_s3_protection" {
   default     = true
 }
 
+variable "enable_kubernetes_protection" {
+  description = "(Required) If true, enables S3 Protection. Defaults to true."
+  type        = bool
+  default     = true
+}
+
+variable "enable_malware_protection" {
+  description = "(Required) If true, enables S3 Protection. Defaults to true."
+  type        = bool
+  default     = true
+}
+
 variable "finding_publishing_frequency" {
   description = "(Optional) Specifies the frequency of notifications sent for subsequent finding occurrences. If the detector is a GuardDuty member account, the value is determined by the GuardDuty primary account and cannot be modified, otherwise defaults to SIX_HOURS. For standalone and GuardDuty primary accounts, it must be configured in Terraform to enable drift detection. Valid values for standalone and primary accounts: FIFTEEN_MINUTES, ONE_HOUR, SIX_HOURS."
   type        = string

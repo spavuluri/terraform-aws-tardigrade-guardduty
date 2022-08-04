@@ -19,7 +19,19 @@ resource "aws_guardduty_organization_configuration" "this" {
 
   datasources {
     s3_logs {
-      auto_enable = true
+      auto_enable = var.auto_enable_s3_protection
+    }
+    kubernetes {
+      audit_logs {
+        enable = var.enable_kubernetes_protection
+      }
+    }
+    malware_protection {
+      scan_ec2_instance_with_findings {
+        ebs_volumes {
+          auto_enable = var.auto_enable_malware_protection
+        }
+      }
     }
   }
 }

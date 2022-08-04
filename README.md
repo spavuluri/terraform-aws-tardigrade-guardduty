@@ -21,13 +21,14 @@ You can find example implementations of this module in the tests folder (create_
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.15 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.24.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.24.0 |
 
 ## Resources
 
@@ -39,6 +40,8 @@ You can find example implementations of this module in the tests folder (create_
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_enable"></a> [enable](#input\_enable) | (Optional) Enable GuardDuty monitoring and feedback reporting. Setting to false is equivalent to 'suspending'GuardDuty. Defaults to true. | `bool` | `true` | no |
+| <a name="input_enable_kubernetes_protection"></a> [enable\_kubernetes\_protection](#input\_enable\_kubernetes\_protection) | (Required) If true, enables S3 Protection. Defaults to true. | `bool` | `true` | no |
+| <a name="input_enable_malware_protection"></a> [enable\_malware\_protection](#input\_enable\_malware\_protection) | (Required) If true, enables S3 Protection. Defaults to true. | `bool` | `true` | no |
 | <a name="input_enable_s3_protection"></a> [enable\_s3\_protection](#input\_enable\_s3\_protection) | (Required) If true, enables S3 Protection. Defaults to true. | `bool` | `true` | no |
 | <a name="input_filters"></a> [filters](#input\_filters) | GuardDuty filter configuration list | <pre>list(object({<br>    name        = string                   # (Required) The name of your filter.  SPACES ARE NOT ALOWED<br>    description = string                   # (Optional) Description of the filter.<br>    rank        = number                   # (Required) Specifies the position of the filter in the list of current filters. Also specifies the order in which this filter is applied to the findings.<br>    action      = string                   # (Required) Specifies the action that is to be applied to the findings that match the filter. Can be one of ARCHIVE or NOOP.<br>    tags        = map(string)              # (Optional) - The tags that you want to add to the Filter resource. A tag consists of a key and a value.<br>    criterion = list(object({              # (Represents the criteria to be used in the filter for querying findings. Contains one or more criterion blocks<br>      field                 = string       # (Required) The name of the field to be evaluated. The full list of field names can be found in AWS documentation.<br>      equals                = list(string) # (Optional) List of string values to be evaluated.<br>      not_equals            = list(string) # (Optional) List of string values to be evaluated.<br>      greater_than          = string       # (Optional) A value to be evaluated. Accepts either an integer or a date in RFC 3339 format.<br>      greater_than_or_equal = string       # (Optional) A value to be evaluated. Accepts either an integer or a date in RFC 3339 format.<br>      less_than             = string       # (Optional) A value to be evaluated. Accepts either an integer or a date in RFC 3339 format.<br>      less_than_or_equal    = string       # (Optional) A value to be evaluated. Accepts either an integer or a date in RFC 3339 format.<br>    }))<br>  }))</pre> | `[]` | no |
 | <a name="input_finding_publishing_frequency"></a> [finding\_publishing\_frequency](#input\_finding\_publishing\_frequency) | (Optional) Specifies the frequency of notifications sent for subsequent finding occurrences. If the detector is a GuardDuty member account, the value is determined by the GuardDuty primary account and cannot be modified, otherwise defaults to SIX\_HOURS. For standalone and GuardDuty primary accounts, it must be configured in Terraform to enable drift detection. Valid values for standalone and primary accounts: FIFTEEN\_MINUTES, ONE\_HOUR, SIX\_HOURS. | `string` | `"SIX_HOURS"` | no |
@@ -50,7 +53,7 @@ You can find example implementations of this module in the tests folder (create_
 
 | Name | Description |
 |------|-------------|
-| <a name="output_detector"></a> [detector](#output\_detector) | GuardDuty filter |
+| <a name="output_detector"></a> [detector](#output\_detector) | GuardDuty detector |
 | <a name="output_filter"></a> [filter](#output\_filter) | GuardDuty filter |
 | <a name="output_ipset"></a> [ipset](#output\_ipset) | GuardDuty ipset |
 | <a name="output_publishing_destination"></a> [publishing\_destination](#output\_publishing\_destination) | GuardDuty publishing destination |

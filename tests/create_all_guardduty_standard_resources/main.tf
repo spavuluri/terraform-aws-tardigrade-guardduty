@@ -7,7 +7,11 @@
 module "guardduty_standard_resources" {
   source = "../../"
 
-  enable = true
+  enable                       = true
+  enable_s3_protection         = true
+  enable_kubernetes_protection = true
+  enable_malware_protection    = true
+  finding_publishing_frequency = "SIX_HOURS"
 
   filters = [
     {

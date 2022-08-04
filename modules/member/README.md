@@ -14,14 +14,14 @@ Note: the implementation `tests/create_guardduty_member` will require you to pro
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.15 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.24.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.0 |
-| <a name="provider_aws.administrator"></a> [aws.administrator](#provider\_aws.administrator) | >= 3.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.24.0 |
+| <a name="provider_aws.administrator"></a> [aws.administrator](#provider\_aws.administrator) | >= 4.24.0 |
 
 ## Resources
 
@@ -36,6 +36,10 @@ Note: the implementation `tests/create_guardduty_member` will require you to pro
 |------|-------------|------|---------|:--------:|
 | <a name="input_member"></a> [member](#input\_member) | GuardDuty member | <pre>object({<br>    email                      = string # (Required) Email address for member account.<br>    invitation_message         = string # (Optional) Message for invitation.<br>    disable_email_notification = bool   # (Optional) Boolean whether an email notification is sent to the accounts. Defaults to false.<br>  })</pre> | n/a | yes |
 | <a name="input_enable"></a> [enable](#input\_enable) | (Optional) Enable monitoring and feedback reporting. Setting to false is equivalent to 'suspending' GuardDuty. Defaults to true. | `bool` | `true` | no |
+| <a name="input_enable_kubernetes_protection"></a> [enable\_kubernetes\_protection](#input\_enable\_kubernetes\_protection) | (Required) If true, enables S3 Protection. Defaults to true. | `bool` | `true` | no |
+| <a name="input_enable_malware_protection"></a> [enable\_malware\_protection](#input\_enable\_malware\_protection) | (Required) If true, enables S3 Protection. Defaults to true. | `bool` | `true` | no |
+| <a name="input_enable_s3_protection"></a> [enable\_s3\_protection](#input\_enable\_s3\_protection) | (Required) If true, enables S3 Protection. Defaults to true. | `bool` | `true` | no |
+| <a name="input_finding_publishing_frequency"></a> [finding\_publishing\_frequency](#input\_finding\_publishing\_frequency) | (Optional) Specifies the frequency of notifications sent for subsequent finding occurrences. If the detector is a GuardDuty member account, the value is determined by the GuardDuty primary account and cannot be modified, otherwise defaults to SIX\_HOURS. For standalone and GuardDuty primary accounts, it must be configured in Terraform to enable drift detection. Valid values for standalone and primary accounts: FIFTEEN\_MINUTES, ONE\_HOUR, SIX\_HOURS. | `string` | `"SIX_HOURS"` | no |
 
 ## Outputs
 

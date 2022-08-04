@@ -8,6 +8,24 @@
 # Create GuardDuty detector for the member account
 resource "aws_guardduty_detector" "this" {
   enable = var.enable
+
+  datasources {
+    s3_logs {
+      enable = var.enable_s3_protection
+    }
+    kubernetes {
+      audit_logs {
+        enable = var.enable_kubernetes_protection
+      }
+    }
+    malware_protection {
+      scan_ec2_instance_with_findings {
+        ebs_volumes {
+          enable = var.enable_malware_protection
+        }
+      }
+    }
+  }
 }
 
 # Create GuardDuty member in the administrator account

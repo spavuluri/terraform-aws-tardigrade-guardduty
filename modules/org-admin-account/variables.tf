@@ -4,6 +4,24 @@ variable "enable" {
   default     = true
 }
 
+variable "auto_enable_s3_protection" {
+  description = "(Required) If true, enables S3 Protection. Defaults to true."
+  type        = bool
+  default     = true
+}
+
+variable "enable_kubernetes_protection" {
+  description = "(Required) If true, enables S3 Protection. Defaults to true."
+  type        = bool
+  default     = true
+}
+
+variable "auto_enable_malware_protection" {
+  description = "(Required) If true, enables S3 Protection. Defaults to true."
+  type        = bool
+  default     = true
+}
+
 variable "delegated_administrator_account_id" {
   description = "(Required) AWS account identifier to designate as a delegated administrator for GuardDuty."
   type        = string
