@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+### 3.1.1
+
+**Released**: 2022.08.09
+
+**Commit Delta**: [Change from 3.1.0 release](https://github.com/plus3it/terraform-aws-tardigrade-guardduty/compare/3.1.0...3.1.1)
+
+**Summary**:
+
+*   Uses dynamic block to null the malware protection data source when input is `null`
+
 ### 3.1.0
 
 **Released**: 2022.08.03
