@@ -14,7 +14,7 @@ resource "aws_guardduty_organization_admin_account" "this" {
 
 # Configure the delegated GuardDuty administrator organization configuration
 resource "aws_guardduty_organization_configuration" "this" {
-  auto_enable = true
+  auto_enable_organization_members = "ALL"
   detector_id = var.delegated_administrator_account_detecter_id
 
   datasources {
@@ -34,7 +34,7 @@ resource "aws_guardduty_organization_configuration" "this" {
       content {
         scan_ec2_instance_with_findings {
           ebs_volumes {
-            enable = var.auto_enable_malware_protection
+            auto_enable = var.auto_enable_malware_protection
           }
         }
       }

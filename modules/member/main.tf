@@ -9,6 +9,8 @@
 resource "aws_guardduty_detector" "this" {
   enable = var.enable
 
+  finding_publishing_frequency = var.finding_publishing_frequency
+
   datasources {
     s3_logs {
       enable = var.enable_s3_protection
@@ -20,14 +22,10 @@ resource "aws_guardduty_detector" "this" {
       }
     }
 
-    dynamic "malware_protection" {
-      for_each = var.enable_malware_protection != null ? ["one"] : []
-
-      content {
-        scan_ec2_instance_with_findings {
-          ebs_volumes {
-            enable = var.enable_malware_protection
-          }
+    malware_protection {
+      scan_ec2_instance_with_findings {
+        ebs_volumes {
+          enable = var.enable_malware_protection
         }
       }
     }
